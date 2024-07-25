@@ -11,37 +11,6 @@
     <!-- Divider -->
     <hr class="sidebar-divider my-0">
 
-    <!-- Nav Item - Dashboard -->
-    @can('admin')
-    <li class="nav-item">
-        <a class="nav-link" href="{{ route('admin') }}">
-            <i class="fas fa-fw fa-tachometer-alt"></i>
-            <span>Dashboard</span></a>
-    </li>
-    @endcan
-
-    @can('user')
-    <li class="nav-item">
-        <a class="nav-link" href="{{ route('user') }}">
-            <i class="fas fa-fw fa-tachometer-alt"></i>
-            <span>Dashboard</span></a>
-    </li>  
-    @elseCan('admin')
-    <li class="nav-item">
-        <a class="nav-link" href="{{ route('user') }}">
-            <i class="fas fa-fw fa-user"></i>
-            <span>User Dashboard</span></a>
-    </li>
-    @endCan
-
-    <!-- Divider -->
-    <hr class="sidebar-divider">
-
-    <!-- Heading -->
-    <div class="sidebar-heading">
-        Interface
-    </div>
-
     @can('admin')
     <li class="nav-item">
         <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseOne"
@@ -54,6 +23,37 @@
                 <a class="collapse-item" href="{{ route('user.index') }}">User</a>
             </div>
         </div>
+    </li>
+    @endcan
+
+    <!-- @can('user')
+    <li class="nav-item">
+        <a class="nav-link" href="{{ route('user') }}">
+            <i class="fas fa-fw fa-tachometer-alt"></i>
+            <span>Dashboard</span></a>
+    </li>  
+    @elseCan('admin')
+    <li class="nav-item">
+        <a class="nav-link" href="{{ route('user') }}">
+            <i class="fas fa-fw fa-user"></i>
+            <span>User Dashboard</span></a>
+    </li>
+    @endCan -->
+
+    <!-- Divider -->
+    <hr class="sidebar-divider">
+
+    <!-- Heading -->
+    <div class="sidebar-heading">
+        Interface
+    </div>
+
+    <!-- Nav Item - Dashboard -->
+    @can('admin')
+    <li class="nav-item">
+        <a class="nav-link" href="{{ route('admin') }}">
+            <i class="fas fa-fw fa-tachometer-alt"></i>
+            <span>Dashboard</span></a>
     </li>
     @endcan
 
