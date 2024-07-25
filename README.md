@@ -69,5 +69,41 @@ Lalu ketik command dibawah ini :
 </a>
 <br><br>
 
-## Author
-- Rahmat Hidayatullah
+
+## RUN IN UBUNTU 20.04
+
+# update system
+sudo apt-get update
+sudo apt-get upgrade
+# install php
+sudo apt-get install software-properties-common
+sudo add-apt-repository ppa:ondrej/php
+sudo apt-get update
+sudo apt-get install php8.2 php8.2-cli php8.2-mysql php8.2-pgsql php8.2-xml php8.2-mbstring php8.2-curl php8.2-zip
+
+# clone repo
+git clone https://github.com/nickbp760/sb-admin-2-laravel-8.git
+cd sb-admin-2-laravel-8/
+sudo apt install composer
+composer update
+composer install
+
+
+# install postgress
+sudo apt-get install postgresql postgresql-contrib
+sudo service postgresql start
+sudo -i -u postgres
+	psql
+		ALTER USER postgres PASSWORD 'new_password';
+	\q
+exit
+
+# access postgress
+sudo nano /etc/postgresql/12/main/postgresql.conf
+change listen_addresses = '*'
+
+sudo nano /etc/postgresql/12/main/pg_hba.conf
+add host    all             all             0.0.0.0/0               md5
+
+sudo service postgresql restart
+hostname -I
