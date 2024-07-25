@@ -5,7 +5,7 @@
         <div class="sidebar-brand-icon">
             <i class="fab fa-laravel"></i>
         </div>
-        <div class="sidebar-brand-text mx-3">CHIKADMIN</div>
+        <div class="sidebar-brand-text mx-3">WELCOME ADMIN</div>
     </a>
 
     <!-- Divider -->
