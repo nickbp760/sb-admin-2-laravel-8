@@ -43,9 +43,6 @@ Route::group(['namespace' => 'Admin','middleware' => 'auth','prefix' => 'admin']
 	Route::view('/utilities-borders','admin.utilities-border')->name('utilities-borders');
 	Route::view('/utilities-animations','admin.utilities-animation')->name('utilities-animations');
 	Route::view('/utilities-other','admin.utilities-other')->name('utilities-other');
-	Route::view('/chart','admin.chart')->name('chart');
-	Route::view('/tables','admin.tables')->name('tables');
-	
 
 });
 
@@ -61,7 +58,7 @@ Route::group(['namespace' => 'Auth','middleware' => 'guest'],function(){
 });
 
 // Other
-Route::view('/register','auth.register')->name('register');
+// Route::view('/register','auth.register')->name('register');
 Route::view('/forgot-password','auth.forgot-password')->name('forgot-password');
 Route::post('/logout',function(){
 	return redirect()->to('/login')->with(Auth::logout());
