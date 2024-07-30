@@ -9,4 +9,5 @@ class Jemaat extends Model
 {
     use HasFactory;
     protected $table = "jemaat";
+    protected $fillable = ['nama','alamat'];
 }

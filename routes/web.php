@@ -25,6 +25,11 @@ use App\Http\Controllers\User\ProfileController;
 
 Route::view('/','welcome');
 Route::get('/jemaat', 'JemaatController@index');
+Route::get('/jemaat/tambah', 'JemaatController@tambah');
+Route::post('/jemaat/store', 'JemaatController@store');
+Route::put('/jemaat/update/{id}', 'JemaatController@update');
+Route::get('/jemaat/edit/{id}', 'JemaatController@edit');
+Route::get('/jemaat/hapus/{id}', 'JemaatController@delete');
 
 Route::group(['namespace' => 'Admin','middleware' => 'auth','prefix' => 'admin'],function(){
 	
