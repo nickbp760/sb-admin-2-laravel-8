@@ -24,7 +24,7 @@ use App\Http\Controllers\User\ProfileController;
 */
 
 Route::view('/','welcome');
-
+Route::get('/jemaat', 'JemaatController@index');
 
 Route::group(['namespace' => 'Admin','middleware' => 'auth','prefix' => 'admin'],function(){
 	
@@ -43,7 +43,6 @@ Route::group(['namespace' => 'Admin','middleware' => 'auth','prefix' => 'admin']
 	Route::view('/utilities-borders','admin.utilities-border')->name('utilities-borders');
 	Route::view('/utilities-animations','admin.utilities-animation')->name('utilities-animations');
 	Route::view('/utilities-other','admin.utilities-other')->name('utilities-other');
-
 });
 
 Route::group(['namespace' => 'User','middleware' => 'auth' ,'prefix' => 'user'],function(){
