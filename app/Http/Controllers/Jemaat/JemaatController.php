@@ -60,7 +60,12 @@ class JemaatController extends Controller
 	public function delete($id)
 	{
 		$jemaat = Jemaat::find($id);
-		$jemaat->delete();
-		return redirect('/jemaat');
+		
+		if ($jemaat) {
+			$jemaat->delete();
+			return response()->json(['success' => true, 'redirect' => route('jemaat.index')]);
+		}
+
+		return response()->json(['success' => false], 404);
 	}
 }

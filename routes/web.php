@@ -33,7 +33,7 @@ Route::group(['namespace' => 'Jemaat', 'middleware' => ['auth', 'can:admin'], 'p
     Route::post('/store', [JemaatController::class, 'store'])->name('jemaat.store');
     Route::put('/update/{id}', [JemaatController::class, 'update'])->name('jemaat.update');
     Route::get('/edit/{id}', [JemaatController::class, 'edit'])->name('jemaat.edit');
-    Route::get('/hapus/{id}', [JemaatController::class, 'delete'])->name('jemaat.delete');
+	Route::delete('/hapus/{id}', [JemaatController::class, 'delete'])->name('jemaat.delete');
 });
 
 Route::group(['namespace' => 'Admin','middleware' => 'auth','prefix' => 'admin'],function(){

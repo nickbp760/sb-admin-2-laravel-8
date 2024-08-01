@@ -10,7 +10,7 @@
 @section('content')
 
 <div class="card-body">
-    <a href="/jemaat/tambah" class="btn btn-info">Input Jemaat Baru</a>
+    <a href="{{ route('jemaat.tambah') }}" class="btn btn-info">Input Jemaat Baru</a>
     <br/>
     <br/>
     <div class="table-responsive">
@@ -30,7 +30,7 @@
                     <td>{{ $e->nama }}</td>
                     <td>{{ $e->alamat }}</td>          
                     <td>
-                        <a href="/jemaat/edit/{{ $e->id }}" class="btn btn-primary">Edit</a>
+                        <a href="{{ route('jemaat.edit', $e->id) }}" class="btn btn-primary">Edit</a>
                         <button class="btn btn-danger btn-delete" data-id="{{ $e->id }}">Hapus</button>
                     </td>
                 </tr>
@@ -73,17 +73,10 @@
 $(document).ready(function() {
     var deleteUrl = '';
 
-    // // Add CSRF token to AJAX setup
-    // $.ajaxSetup({
-    //     headers: {
-    //         'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
-    //     }
-    // });
-
     // Handle delete button click
     $('body').on('click', '.btn-delete', function() {
         var id = $(this).data('id');
-        deleteUrl = '/jemaat/hapus/' + id;
+        deleteUrl = '{{ route("jemaat.delete", ":id") }}'.replace(':id', id);
         $('#delete-modal').modal('show');
     });
 
