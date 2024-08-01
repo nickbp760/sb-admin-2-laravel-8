@@ -23,10 +23,15 @@
                 <a class="collapse-item" href="{{ route('user.index') }}">User</a>
             </div>
         </div>
+        <div id="collapseOne" class="collapse" aria-labelledby="headingTwo" data-parent="#accordionSidebar">
+            <div class="bg-white py-2 collapse-inner rounded">
+                <a class="collapse-item" href="{{ route('jemaat.index') }}">Jemaat</a>
+            </div>
+        </div>
     </li>
     @endcan
 
-    <!-- @can('user')
+    @can('user')
     <li class="nav-item">
         <a class="nav-link" href="{{ route('user') }}">
             <i class="fas fa-fw fa-tachometer-alt"></i>
@@ -38,7 +43,7 @@
             <i class="fas fa-fw fa-user"></i>
             <span>User Dashboard</span></a>
     </li>
-    @endCan -->
+    @endCan
 
     <!-- Divider -->
     <hr class="sidebar-divider">

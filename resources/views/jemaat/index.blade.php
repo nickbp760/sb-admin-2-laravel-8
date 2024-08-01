@@ -1,44 +1,107 @@
-<!doctype html>
-<html>
-    <head>
-        <meta charset="utf-8">
-        <meta name="viewport" content="width=device-width, initial-scale=1">
-        <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.2.1/css/bootstrap.min.css" rel="stylesheet">
-        <title>CRUD Eloquent Laravel - www.malasngoding.com</title>
-    </head>
-    <body>
-        <div class="container">
-            <div class="card mt-5">
-                <div class="card-header text-center">
-                    CRUD Data Jemaat - <a href="https://www.malasngoding.com/category/laravel" target="_blank">www.malasngoding.com</a>
-                </div>
-                <div class="card-body">
-                    <a href="/jemaat/tambah" class="btn btn-primary">Input Jemaat Baru</a>
-                    <br/>
-                    <br/>
-                    <table class="table table-bordered table-hover table-striped">
-                        <thead>
-                            <tr>
-                                <th>Nama</th>
-                                <th>Alamat</th>
-                                <th>OPSI</th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            @foreach($jemaat as $p)
-                            <tr>
-                                <td>{{ $p->nama }}</td>
-                                <td>{{ $p->alamat }}</td>
-                                <td>
-                                    <a href="/jemaat/edit/{{ $p->id }}" class="btn btn-warning">Edit</a>
-                                    <a href="/jemaat/hapus/{{ $p->id }}" class="btn btn-danger">Hapus</a>
-                                </td>
-                            </tr>
-                            @endforeach
-                        </tbody>
-                    </table>
-                </div>
+@extends('layout.backend.app', [
+    'title' => 'Manage Jemaat',
+    'pageTitle' => 'Manage Jemaat',
+])
+
+@push('css')
+<link href="{{ asset('template/backend/sb-admin-2') }}/vendor/datatables/dataTables.bootstrap4.min.css" rel="stylesheet">
+@endpush
+
+@section('content')
+
+<div class="card-body">
+    <a href="/jemaat/tambah" class="btn btn-info">Input Jemaat Baru</a>
+    <br/>
+    <br/>
+    <div class="table-responsive">
+        <table class="table table-bordered table-striped display nowrap" style="width:100%" id="dataTable">
+            <thead>
+                <tr>
+                    <th>Id</th>
+                    <th>Nama</th>
+                    <th>Alamat</th>
+                    <th>OPSI</th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach($jemaat as $e)
+                <tr>
+                    <td>{{ $e->id }}</td>             
+                    <td>{{ $e->nama }}</td>
+                    <td>{{ $e->alamat }}</td>          
+                    <td>
+                        <a href="/jemaat/edit/{{ $e->id }}" class="btn btn-primary">Edit</a>
+                        <button class="btn btn-danger btn-delete" data-id="{{ $e->id }}">Hapus</button>
+                    </td>
+                </tr>
+                @endforeach
+            </tbody>
+        </table>
+    </div>
+</div>
+
+<!-- Delete Confirmation Modal -->
+<div class="modal fade" id="delete-modal" tabindex="-1" role="dialog" aria-labelledby="delete-modalLabel" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="delete-modalLabel">Confirm Deletion</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                Are you sure you want to delete this item?
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancel</button>
+                <button type="button" class="btn btn-danger" id="confirm-delete">Delete</button>
             </div>
         </div>
-    </body>
-</html>
+    </div>
+</div>
+<!-- Delete Confirmation Modal -->
+
+@endsection
+
+@push('js')
+<script src="{{ asset('template/backend/sb-admin-2') }}/vendor/datatables/jquery.dataTables.min.js"></script>
+<script src="{{ asset('template/backend/sb-admin-2') }}/vendor/datatables/dataTables.bootstrap4.min.js"></script>
+<script src="{{ asset('template/backend/sb-admin-2') }}/js/demo/datatables-demo.js"></script>
+
+<script type="text/javascript">
+$(document).ready(function() {
+    var deleteUrl = '';
+
+    // // Add CSRF token to AJAX setup
+    // $.ajaxSetup({
+    //     headers: {
+    //         'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+    //     }
+    // });
+
+    // Handle delete button click
+    $('body').on('click', '.btn-delete', function() {
+        var id = $(this).data('id');
+        deleteUrl = '/jemaat/hapus/' + id;
+        $('#delete-modal').modal('show');
+    });
+
+    // Confirm delete action
+    $('#confirm-delete').on('click', function() {
+        $.ajax({
+            url: deleteUrl,
+            method: 'DELETE',
+            success: function(response) {
+                $('#delete-modal').modal('hide');
+                location.reload(); // Reload the page to reflect changes
+            },
+            error: function(xhr) {
+                console.error(xhr.responseText);
+                $('#delete-modal').modal('hide');
+            }
+        });
+    });
+});
+</script>
+@endpush
