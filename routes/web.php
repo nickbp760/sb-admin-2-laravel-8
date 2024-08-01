@@ -12,6 +12,9 @@ use App\Http\Controllers\Admin\AdminController;
 use App\Http\Controllers\User\UserController;
 use App\Http\Controllers\User\ProfileController;
 
+//Namespace Jemaat
+use App\Http\Controllers\Jemaat\JemaatController;
+
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -24,12 +27,14 @@ use App\Http\Controllers\User\ProfileController;
 */
 
 Route::view('/','welcome');
-Route::get('/jemaat', 'JemaatController@index');
-Route::get('/jemaat/tambah', 'JemaatController@tambah');
-Route::post('/jemaat/store', 'JemaatController@store');
-Route::put('/jemaat/update/{id}', 'JemaatController@update');
-Route::get('/jemaat/edit/{id}', 'JemaatController@edit');
-Route::get('/jemaat/hapus/{id}', 'JemaatController@delete');
+Route::group(['namespace' => 'Jemaat', 'middleware' => ['auth', 'can:admin'], 'prefix' => 'jemaat'], function () {
+    Route::get('/', [JemaatController::class, 'index'])->name('jemaat.index');
+    Route::get('/tambah', [JemaatController::class, 'tambah'])->name('jemaat.tambah');
+    Route::post('/store', [JemaatController::class, 'store'])->name('jemaat.store');
+    Route::put('/update/{id}', [JemaatController::class, 'update'])->name('jemaat.update');
+    Route::get('/edit/{id}', [JemaatController::class, 'edit'])->name('jemaat.edit');
+    Route::get('/hapus/{id}', [JemaatController::class, 'delete'])->name('jemaat.delete');
+});
 
 Route::group(['namespace' => 'Admin','middleware' => 'auth','prefix' => 'admin'],function(){
 	

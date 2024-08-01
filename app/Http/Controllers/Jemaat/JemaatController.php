@@ -1,11 +1,10 @@
 <?php
 
-namespace App\Http\Controllers;
+namespace App\Http\Controllers\Jemaat;
 
+use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
-
-// panggil model jemaat
-use App\Models\Jemaat; // Pastikan model diimpor dengan benar
+use App\Models\Jemaat; // Make sure the model is imported correctly
 
 class JemaatController extends Controller
 {
@@ -15,12 +14,12 @@ class JemaatController extends Controller
     	$jemaat = Jemaat::all();
  
     	// mengirim data jemaat ke view jemaat
-    	return view('jemaat', ['jemaat' => $jemaat]);
+    	return view('jemaat.index', ['jemaat' => $jemaat]);
     }
 
 	public function tambah()
     {
-    	return view('jemaat_tambah');
+    	return view('jemaat.jemaat_tambah');
     }
 
 	public function store(Request $request)
@@ -41,7 +40,7 @@ class JemaatController extends Controller
 	public function edit($id)
 	{
 		$jemaat = Jemaat::find($id);
-		return view('jemaat_edit', ['jemaat' => $jemaat]);
+		return view('jemaat.jemaat_edit', ['jemaat' => $jemaat]);
 	}
 
 	public function update($id, Request $request)
