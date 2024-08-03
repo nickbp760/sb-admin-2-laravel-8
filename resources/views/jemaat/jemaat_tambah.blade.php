@@ -108,7 +108,7 @@
 
         <div class="form-group">
             <label>Status Baptisan</label>
-            <select name="status_baptisan" class="form-control">
+            <select name="status_baptisan" class="form-control" id="status_baptisan">
                 <option value="">Pilih Status Baptisan</option>
                 <option value="Sudah" {{ old('status_baptisan') == 'Sudah' ? 'selected' : '' }}>Sudah</option>
                 <option value="Belum" {{ old('status_baptisan') == 'Belum' ? 'selected' : '' }}>Belum</option>
@@ -122,7 +122,7 @@
 
         <div class="form-group">
             <label>Tanggal Baptisan</label>
-            <input type="date" name="tanggal_baptisan" class="form-control" value="{{ old('tanggal_baptisan') }}">
+            <input type="date" name="tanggal_baptisan" class="form-control" id="tanggal_baptisan" value="{{ old('tanggal_baptisan') }}" {{ old('status_baptisan') == 'Sudah' ? '' : 'disabled' }}>
             @if($errors->has('tanggal_baptisan'))
                 <div class="text-danger">
                     {{ $errors->first('tanggal_baptisan') }}
@@ -132,7 +132,7 @@
 
         <div class="form-group">
             <label>Status Anggota</label>
-            <select name="status_anggota" class="form-control">
+            <select name="status_anggota" class="form-control" id="status_anggota">
                 <option value="">Pilih Status Anggota</option>
                 <option value="Jemaat Umum" {{ old('status_anggota') == 'Jemaat Umum' ? 'selected' : '' }}>Jemaat Umum</option>
                 <option value="Anggota Aktif" {{ old('status_anggota') == 'Anggota Aktif' ? 'selected' : '' }}>Anggota Aktif</option>
@@ -147,7 +147,7 @@
 
         <div class="form-group">
             <label>Waktu Bergabung</label>
-            <input type="date" name="waktu_bergabung" class="form-control" value="{{ old('waktu_bergabung') }}">
+            <input type="date" name="waktu_bergabung" class="form-control" id="waktu_bergabung" value="{{ old('waktu_bergabung') }}" {{ old('status_anggota') == 'Jemaat Umum' || old('status_anggota') == 'Anggota Aktif' ? '' : 'disabled' }}>
             @if($errors->has('waktu_bergabung'))
                 <div class="text-danger">
                     {{ $errors->first('waktu_bergabung') }}
@@ -173,3 +173,43 @@
 
 </div>
 @endsection
+
+@push('js')
+<script>
+    document.addEventListener('DOMContentLoaded', function () {
+        var statusBaptisanSelect = document.getElementById('status_baptisan');
+        var tanggalBaptisanInput = document.getElementById('tanggal_baptisan');
+        var statusAnggotaSelect = document.getElementById('status_anggota');
+        var waktuBergabungInput = document.getElementById('waktu_bergabung');
+
+        // Function to handle the state of tanggalBaptisanInput
+        function handleBaptisanState() {
+            if (statusBaptisanSelect.value === 'Sudah') {
+                tanggalBaptisanInput.removeAttribute('disabled');
+            } else {
+                tanggalBaptisanInput.setAttribute('disabled', 'disabled');
+                tanggalBaptisanInput.value = ''; // Clear the value if the status is not "Sudah"
+            }
+        }
+
+        // Function to handle the state of waktuBergabungInput
+        function handleAnggotaState() {
+            var selectedStatus = statusAnggotaSelect.value;
+            if (selectedStatus === 'Jemaat Umum' || selectedStatus === 'Anggota Aktif') {
+                waktuBergabungInput.removeAttribute('disabled');
+            } else {
+                waktuBergabungInput.setAttribute('disabled', 'disabled');
+                waktuBergabungInput.value = ''; // Clear the value if the status is not "Jemaat Umum" or "Anggota Aktif"
+            }
+        }
+
+        // Add event listeners
+        statusBaptisanSelect.addEventListener('change', handleBaptisanState);
+        statusAnggotaSelect.addEventListener('change', handleAnggotaState);
+
+        // Trigger the change events to set the initial state
+        handleBaptisanState();
+        handleAnggotaState();
+    });
+</script>
+@endpush
