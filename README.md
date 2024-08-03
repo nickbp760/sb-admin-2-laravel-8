@@ -22,6 +22,7 @@ Lalu ketik command dibawah ini :
 - php artisan migrate (migrasi database)
 - php artisan db:seed --class=UserClass (mengisi data table users) atau bisa juga php artisan db:seed (semua tabel)
 - php artisan storage:link
+- php artisan optimize:clear
 
 ## Login
 - Email : admin@gmail.com

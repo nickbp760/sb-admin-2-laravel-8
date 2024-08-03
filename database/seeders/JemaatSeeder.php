@@ -19,14 +19,14 @@ class JemaatSeeder extends Seeder
         $faker = Faker::create('id_ID');
  
         // membuat data dummy sebanyak 5 record
-        for ($x = 1; $x <= 5; $x++) {
+        for ($x = 1; $x <= 1000; $x++) {
             // insert data dummy jemaat dengan faker
             DB::table('jemaat')->insert([
                 'nama' => $faker->name,
                 'alamat' => $faker->address,
                 'jenis_kelamin' => $faker->randomElement(['Laki-laki', 'Perempuan']),
                 'tanggal_lahir' => $faker->date(),
-                'kota' => $faker->city,
+                'kota' => $faker->randomElement(['Surabaya','Sidoarjo','Gresik']),
                 'kode_pos' => $faker->postcode,
                 'nomor_telepon' => $faker->phoneNumber,
                 'email' => $faker->email,

@@ -10,6 +10,29 @@
 @section('content')
 
 <div class="card-body">
+    <div class="row">
+        <!-- Birthdays This Week -->
+        <div class="col-md-6">
+            <h3>Birthdays This Week</h3>
+            @if (!empty($birthdaysThisWeek))
+                <ul>
+                    @foreach ($birthdaysThisWeek as $birthday)
+                        <li>{{ $birthday['nama'] }} - {{ $birthday['tanggal'] }}</li>
+                    @endforeach
+                </ul>
+            @else
+                <p>No birthdays this week.</p>
+            @endif
+        </div>
+        
+        <!-- Age Distribution Chart -->
+        <div class="col-md-6">
+            <h3>Age Distribution</h3>
+            <canvas id="ageDistributionChart"></canvas>
+        </div>
+    </div>
+    
+    <br/>
     <a href="{{ route('jemaat.tambah') }}" class="btn btn-info">Input Jemaat Baru</a>
     <br/>
     <br/>
@@ -69,6 +92,9 @@
 <script src="{{ asset('template/backend/sb-admin-2') }}/vendor/datatables/dataTables.bootstrap4.min.js"></script>
 <script src="{{ asset('template/backend/sb-admin-2') }}/js/demo/datatables-demo.js"></script>
 
+<!-- Chart.js -->
+<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+
 <script type="text/javascript">
 $(document).ready(function() {
     var deleteUrl = '';
@@ -94,6 +120,30 @@ $(document).ready(function() {
                 $('#delete-modal').modal('hide');
             }
         });
+    });
+
+    // Age Distribution Chart
+    var ctx = document.getElementById('ageDistributionChart').getContext('2d');
+    var ageDistributionData = @json($ageDistribution);
+    new Chart(ctx, {
+        type: 'bar',
+        data: {
+            labels: ageDistributionData.labels,
+            datasets: [{
+                label: 'Jumlah Jemaat',
+                data: ageDistributionData.data,
+                backgroundColor: 'rgba(75, 192, 192, 0.2)',
+                borderColor: 'rgba(75, 192, 192, 1)',
+                borderWidth: 1
+            }]
+        },
+        options: {
+            scales: {
+                y: {
+                    beginAtZero: true
+                }
+            }
+        }
     });
 });
 </script>
