@@ -1,6 +1,6 @@
 @extends('layout.backend.app', [
-    'title' => 'Manage Jemaat',
-    'pageTitle' => 'Manage Jemaat',
+    'title' => 'Pengelolaan Jemaat',
+    'pageTitle' => 'Pengelolaan Jemaat',
 ])
 
 @push('css')
@@ -11,9 +11,9 @@
 
 <div class="card-body">
     <div class="row">
-        <!-- Birthdays This Week -->
+        <!-- Berulang Tahun Minggu Ini -->
         <div class="col-md-6">
-            <h3>Birthdays This Week</h3>
+            <h3>Berulang Tahun Minggu Ini</h3>
             @if (!empty($birthdaysThisWeek))
                 <ul>
                     @foreach ($birthdaysThisWeek as $birthday)
@@ -21,13 +21,13 @@
                     @endforeach
                 </ul>
             @else
-                <p>No birthdays this week.</p>
+                <p>No Berulang Tahun Minggu Ini.</p>
             @endif
         </div>
         
-        <!-- Age Distribution Chart -->
+        <!-- Grafik Distribusi Umur Jemaat -->
         <div class="col-md-6">
-            <h3>Age Distribution</h3>
+            <h3>Distribusi Umur Jemaat</h3>
             <canvas id="ageDistributionChart"></canvas>
         </div>
     </div>
@@ -122,7 +122,7 @@ $(document).ready(function() {
         });
     });
 
-    // Age Distribution Chart
+    // Grafik Distribusi Umur Jemaat
     var ctx = document.getElementById('ageDistributionChart').getContext('2d');
     var ageDistributionData = @json($ageDistribution);
     new Chart(ctx, {
