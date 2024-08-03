@@ -25,14 +25,34 @@ class JemaatController extends Controller
 	public function store(Request $request)
     {
     	$this->validate($request,[
-    		'nama' => 'required',
-    		'alamat' => 'required'
+			'nama' => 'required|string|max:255',
+            'alamat' => 'required|string',
+            'jenis_kelamin' => 'required|string|in:Laki-laki,Perempuan',
+            'tanggal_lahir' => 'nullable|date',
+            'kota' => 'nullable|string|max:25',
+            'kode_pos' => 'nullable|string|max:10',
+            'nomor_telepon' => 'nullable|string|max:20',
+            'email' => 'nullable|string|email|max:255',
+            'status_baptisan' => 'nullable|string|in:Sudah,Belum',
+            'tanggal_baptisan' => 'nullable|date',
+            'status_anggota' => 'nullable|string|in:Jemaat Umum,Anggota Aktif,Tamu',
+            'waktu_bergabung' => 'nullable|date'
     	]);
  
         Jemaat::create([
-    		'nama' => $request->nama,
-    		'alamat' => $request->alamat
-    	]);
+			'nama' => $request->nama,
+			'alamat' => $request->alamat,
+			'jenis_kelamin' => $request->jenis_kelamin,
+			'tanggal_lahir' => $request->tanggal_lahir,
+			'kota' => $request->kota,
+			'kode_pos' => $request->kode_pos,
+			'nomor_telepon' => $request->nomor_telepon,
+			'email' => $request->email,
+			'status_baptisan' => $request->status_baptisan,
+			'tanggal_baptisan' => $request->tanggal_baptisan,
+			'status_anggota' => $request->status_anggota,
+			'waktu_bergabung' => $request->waktu_bergabung,
+		]);
  
     	return redirect('/jemaat');
     }
@@ -46,13 +66,33 @@ class JemaatController extends Controller
 	public function update($id, Request $request)
 	{
 		$this->validate($request,[
-		'nama' => 'required',
-		'alamat' => 'required'
+			'nama' => 'required|string|max:255',
+            'alamat' => 'required|string',
+            'jenis_kelamin' => 'required|string|in:Laki-laki,Perempuan',
+            'tanggal_lahir' => 'nullable|date',
+            'kota' => 'nullable|string|max:25',
+            'kode_pos' => 'nullable|string|max:10',
+            'nomor_telepon' => 'nullable|string|max:20',
+            'email' => 'nullable|string|email|max:255',
+            'status_baptisan' => 'nullable|string|in:Sudah,Belum',
+            'tanggal_baptisan' => 'nullable|date',
+            'status_anggota' => 'nullable|string|in:Jemaat Umum,Anggota Aktif,Tamu',
+            'waktu_bergabung' => 'nullable|date'
 		]);
 	
 		$jemaat = Jemaat::find($id);
 		$jemaat->nama = $request->nama;
 		$jemaat->alamat = $request->alamat;
+		$jemaat->jenis_kelamin = $request->jenis_kelamin;
+		$jemaat->tanggal_lahir = $request->tanggal_lahir;
+		$jemaat->kota = $request->kota;
+		$jemaat->kode_pos = $request->kode_pos;
+		$jemaat->nomor_telepon = $request->nomor_telepon;
+		$jemaat->email = $request->email;
+		$jemaat->status_baptisan = $request->status_baptisan;
+		$jemaat->tanggal_baptisan = $request->tanggal_baptisan;
+		$jemaat->status_anggota = $request->status_anggota;
+		$jemaat->waktu_bergabung = $request->waktu_bergabung;
 		$jemaat->save();
 		return redirect('/jemaat');
 	}
