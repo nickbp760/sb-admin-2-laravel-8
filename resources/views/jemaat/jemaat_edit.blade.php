@@ -63,7 +63,13 @@
 
         <div class="form-group">
             <label>Kota</label>
-            <input type="text" name="kota" class="form-control" placeholder="Kota .." value="{{ old('kota', $jemaat->kota) }}">
+            <select name="kota" class="form-control">
+                <option value="">Pilih Kota Anda</option>
+                <option value="Surabaya" {{ old('kota', $jemaat->kota) == 'Surabaya' ? 'selected' : '' }}>Surabaya</option>
+                <option value="Gresik" {{ old('kota', $jemaat->kota) == 'Gresik' ? 'selected' : '' }}>Gresik</option>
+                <option value="Sidoarjo" {{ old('kota', $jemaat->kota) == 'Sidoarjo' ? 'selected' : '' }}>Sidoarjo</option>
+                <option value="Kediri" {{ old('kota', $jemaat->kota) == 'Kediri' ? 'selected' : '' }}>Kediri</option>
+            </select>
             @if($errors->has('kota'))
                 <div class="text-danger">
                     {{ $errors->first('kota') }}
