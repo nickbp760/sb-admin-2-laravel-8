@@ -21,6 +21,7 @@ Lalu ketik command dibawah ini :
 - php artisan key:generate (generate app key)
 - php artisan migrate (migrasi database)
 - php artisan db:seed --class=UserClass (mengisi data table users) atau bisa juga php artisan db:seed (semua tabel)
+- php artisan storage:link
 
 ## Login
 - Email : admin@gmail.com
@@ -32,42 +33,6 @@ Lalu ketik command dibawah ini :
 - Yajra DataTable Serverside
 - jquery ajax crud dengan datatable serverside example
 
-## Preview
-
-<b>- Home<b>
-
-<a href="https://github.com/rahmathidayat9/readme-images/blob/master/laravel-sb-admin-2/Screenshot%20(837).png?raw=true">
-<img src="https://github.com/rahmathidayat9/readme-images/blob/master/laravel-sb-admin-2/Screenshot%20(837).png?raw=true">
-</a>
-<br><br>
-
-<b>- Login<b>
-
-<a href="https://github.com/rahmathidayat9/readme-images/blob/master/laravel-sb-admin-2/Screenshot%20(803).png?raw=true">
-	<img src="https://github.com/rahmathidayat9/readme-images/blob/master/laravel-sb-admin-2/Screenshot%20(803).png?raw=true">
-</a>
-<br><br>
-
-<b>- Dashboard<b>
-
-<a href="https://github.com/rahmathidayat9/readme-images/blob/master/laravel-sb-admin-2/Screenshot%20(830).png?raw=true">
-	<img src="https://github.com/rahmathidayat9/readme-images/blob/master/laravel-sb-admin-2/Screenshot%20(830).png?raw=true">
-</a>
-<br><br>
-
-<b>- Profile<b>
-
-<a href="https://github.com/rahmathidayat9/readme-images/blob/master/laravel-sb-admin-2/Screenshot%20(831).png?raw=true">
-	<img src="https://github.com/rahmathidayat9/readme-images/blob/master/laravel-sb-admin-2/Screenshot%20(831).png?raw=true">
-</a>
-<br><br>
-
-<b>- Yajra Crud Datatable<b>
-
-<a href="https://github.com/rahmathidayat9/readme-images/blob/master/laravel-sb-admin-2/Screenshot%20(805).png?raw=true">
-	<img src="https://github.com/rahmathidayat9/readme-images/blob/master/laravel-sb-admin-2/Screenshot%20(805).png?raw=true">
-</a>
-<br><br>
 
 
 ## RUN IN UBUNTU 20.04

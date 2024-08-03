@@ -13,7 +13,7 @@
     <br/>
     <br/>
     
-    <form method="post" action="/jemaat/update/{{ $jemaat->id }}">
+    <form method="post" action="/jemaat/update/{{ $jemaat->id }}" enctype="multipart/form-data">
         {{ csrf_field() }}
         {{ method_field('PUT') }}
 
@@ -149,6 +149,24 @@
                 </div>
             @endif
         </div>
+
+    <!-- New Photo Upload Field -->
+    <div class="form-group">
+        <label>Foto</label>
+        <input type="file" name="foto" class="form-control">
+        @if($errors->has('foto'))
+            <div class="text-danger">
+                {{ $errors->first('foto') }}
+            </div>
+        @endif
+        <!-- Display existing photo if available -->
+        @if($jemaat->foto)
+            <div class="mt-2">
+            <img src="{{ str_replace('public/', '', asset('storage/' . $jemaat->foto)) }}" alt="Foto Jemaat" class="img-thumbnail" style="max-height: 200px;">
+            </div>
+        @endif
+    </div>
+
 
         <div class="form-group">
             <input type="submit" class="btn btn-success" value="Simpan">

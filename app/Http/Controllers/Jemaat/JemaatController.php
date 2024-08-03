@@ -1,6 +1,7 @@
 <?php
 
 namespace App\Http\Controllers\Jemaat;
+use Illuminate\Support\Facades\Storage;
 
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
@@ -26,9 +27,9 @@ class JemaatController extends Controller
     {
     	$this->validate($request,[
 			'nama' => 'required|string|max:255',
-            'alamat' => 'required|string',
+            'alamat' => 'nullable|string',
             'jenis_kelamin' => 'required|string|in:Laki-laki,Perempuan',
-            'tanggal_lahir' => 'nullable|date',
+            'tanggal_lahir' => 'required|date',
             'kota' => 'nullable|string|max:25',
             'kode_pos' => 'nullable|string|max:10',
             'nomor_telepon' => 'nullable|string|max:20',
@@ -36,8 +37,10 @@ class JemaatController extends Controller
             'status_baptisan' => 'nullable|string|in:Sudah,Belum',
             'tanggal_baptisan' => 'nullable|date',
             'status_anggota' => 'nullable|string|in:Jemaat Umum,Anggota Aktif,Tamu',
-            'waktu_bergabung' => 'nullable|date'
+            'waktu_bergabung' => 'nullable|date',
+            'foto' => 'nullable|image|mimes:jpg,jpeg,png,gif|max:2048'
     	]);
+		$fotoPath = $request->file('foto') ? $request->file('foto')->store('public/foto') : null;
  
         Jemaat::create([
 			'nama' => $request->nama,
@@ -52,6 +55,7 @@ class JemaatController extends Controller
 			'tanggal_baptisan' => $request->tanggal_baptisan,
 			'status_anggota' => $request->status_anggota,
 			'waktu_bergabung' => $request->waktu_bergabung,
+			'foto' => $fotoPath
 		]);
  
     	return redirect('/jemaat');
@@ -67,9 +71,9 @@ class JemaatController extends Controller
 	{
 		$this->validate($request,[
 			'nama' => 'required|string|max:255',
-            'alamat' => 'required|string',
+            'alamat' => 'nullable|string',
             'jenis_kelamin' => 'required|string|in:Laki-laki,Perempuan',
-            'tanggal_lahir' => 'nullable|date',
+            'tanggal_lahir' => 'required|date',
             'kota' => 'nullable|string|max:25',
             'kode_pos' => 'nullable|string|max:10',
             'nomor_telepon' => 'nullable|string|max:20',
@@ -77,23 +81,38 @@ class JemaatController extends Controller
             'status_baptisan' => 'nullable|string|in:Sudah,Belum',
             'tanggal_baptisan' => 'nullable|date',
             'status_anggota' => 'nullable|string|in:Jemaat Umum,Anggota Aktif,Tamu',
-            'waktu_bergabung' => 'nullable|date'
+            'waktu_bergabung' => 'nullable|date',
+			'foto' => 'nullable|image|mimes:jpg,jpeg,png|max:2048'
 		]);
-	
 		$jemaat = Jemaat::find($id);
-		$jemaat->nama = $request->nama;
-		$jemaat->alamat = $request->alamat;
-		$jemaat->jenis_kelamin = $request->jenis_kelamin;
-		$jemaat->tanggal_lahir = $request->tanggal_lahir;
-		$jemaat->kota = $request->kota;
-		$jemaat->kode_pos = $request->kode_pos;
-		$jemaat->nomor_telepon = $request->nomor_telepon;
-		$jemaat->email = $request->email;
-		$jemaat->status_baptisan = $request->status_baptisan;
-		$jemaat->tanggal_baptisan = $request->tanggal_baptisan;
-		$jemaat->status_anggota = $request->status_anggota;
-		$jemaat->waktu_bergabung = $request->waktu_bergabung;
-		$jemaat->save();
+
+		if ($request->hasFile('foto')) {
+            // Hapus foto lama jika ada
+            if ($jemaat->foto && Storage::exists($jemaat->foto)) {
+                Storage::delete($jemaat->foto);
+            }
+            // Simpan foto baru
+            $fotoPath = $request->file('foto')->store('public/foto');
+        } else {
+            // Jika tidak ada foto baru, gunakan foto lama
+            $fotoPath = $jemaat->foto;
+        }
+
+		$jemaat->update([
+            'nama' => $request->nama,
+            'alamat' => $request->alamat,
+            'jenis_kelamin' => $request->jenis_kelamin,
+            'tanggal_lahir' => $request->tanggal_lahir,
+            'kota' => $request->kota,
+            'kode_pos' => $request->kode_pos,
+            'nomor_telepon' => $request->nomor_telepon,
+            'email' => $request->email,
+            'status_baptisan' => $request->status_baptisan,
+            'tanggal_baptisan' => $request->tanggal_baptisan,
+            'status_anggota' => $request->status_anggota,
+            'waktu_bergabung' => $request->waktu_bergabung,
+            'foto' => $fotoPath,
+        ]);
 		return redirect('/jemaat');
 	}
 

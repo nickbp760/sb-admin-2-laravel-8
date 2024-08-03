@@ -21,7 +21,8 @@ class Jemaat extends Model
         'status_baptisan',
         'tanggal_baptisan',
         'status_anggota',
-        'waktu_bergabung'
+        'waktu_bergabung',
+        'foto'
     ];
     protected $dates = ['tanggal_lahir', 'tanggal_baptisan', 'waktu_bergabung']; // Define date columns here
 }

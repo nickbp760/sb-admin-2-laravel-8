@@ -17,9 +17,9 @@ class CreateJemaatsTable extends Migration
             $table->id();
             $table->timestamps();
             $table->string('nama');
-            $table->text('alamat');
-            $table->string('jenis_kelamin', 15)->nullable();
-            $table->date('tanggal_lahir')->nullable();
+            $table->text('alamat')->nullable();
+            $table->string('jenis_kelamin', 15);
+            $table->date('tanggal_lahir');
             $table->string('kota', 25)->nullable();
             $table->string('kode_pos', 10)->nullable();
             $table->string('nomor_telepon', 20)->nullable();
@@ -28,6 +28,7 @@ class CreateJemaatsTable extends Migration
             $table->date('tanggal_baptisan')->nullable();
             $table->string('status_anggota', 15)->nullable();
             $table->timestamp('waktu_bergabung')->nullable();
+            $table->string('foto')->nullable();
         });
     }
 

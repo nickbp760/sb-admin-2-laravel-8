@@ -13,7 +13,7 @@
     <br/>
     <br/>
     
-    <form method="post" action="/jemaat/store">
+    <form method="post" action="/jemaat/store" enctype="multipart/form-data">
         {{ csrf_field() }}
 
         <div class="form-group">
@@ -145,6 +145,16 @@
             @if($errors->has('waktu_bergabung'))
                 <div class="text-danger">
                     {{ $errors->first('waktu_bergabung') }}
+                </div>
+            @endif
+        </div>
+
+        <div class="form-group">
+            <label>Foto</label>
+            <input type="file" name="foto" class="form-control">
+            @if($errors->has('foto'))
+                <div class="text-danger">
+                    {{ $errors->first('foto') }}
                 </div>
             @endif
         </div>
